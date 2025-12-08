@@ -1,4 +1,5 @@
 import Char
+import System.Environment
 
 bytesCount str = case str of
                     []  -> 0
@@ -16,3 +17,14 @@ wordsCount str = outWords str
             | otherwise    = outWords cs
           outWords str = wordScan (¥n -> 1 + n) str
           inWord str = wordScan id str
+
+wcFile filename = do
+    contents <- readFile filename
+    putStrln ("¥t" ++ show (linesCount contents) ++
+              "¥t" ++ show (wordsCount contents) ++
+              "¥t" ++ show (bytesCount contents) ++
+              "¥t" ++ filename)
+
+main = do
+    args <- getArgs
+    mapM_ wcFile args
